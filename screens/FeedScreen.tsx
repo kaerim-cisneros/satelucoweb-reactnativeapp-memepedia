@@ -12,15 +12,8 @@ interface IFeedScreenProps {
 
 export default (props: IFeedScreenProps) => {
   return (
-    <Container>
-      <Text> 1os Pininos</Text>
-
-      <TouchableOpacity onPress={() => props.navigation.navigate("Search")}>
-        <Text>
-         Lobo estas ahi?
-        </Text>
-      </TouchableOpacity>
-
+    <Container navigate={props.navigation.navigate}>
+      <Text>1os Pininos</Text>
     </Container>
   );
 };

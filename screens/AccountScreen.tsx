@@ -1,15 +1,22 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+
+import Container from "../components/layouts/Container";
 
 
+interface IAccountScreenProps {
+  navigation: {
+    navigate: (arg: string) => void;
+  }
+} 
 
 
-export default () => {
+export default (props: IAccountScreenProps) => {
   return (
-    <View>
+    <Container navigate={props.navigation.navigate}>
       <Text> 
           Cuantas cuentas
         </Text>
-    </View>
+    </Container>
   );
 };

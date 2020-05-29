@@ -1,15 +1,23 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text } from 'react-native';
+
+import Container from "../components/layouts/Container";
+
+
+interface IPostFormScreenProps {
+  navigation: {
+    navigate: (arg: string) => void;
+  }
+} 
 
 
 
-
-export default () => {
+export default (props: IPostFormScreenProps) => {
   return (
-    <View>
+    <Container navigate={props.navigation.navigate}>
       <Text> 
           Like a Sunflower
         </Text>
-    </View>
+    </Container>
   );
 };

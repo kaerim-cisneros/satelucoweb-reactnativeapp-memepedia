@@ -3,11 +3,16 @@ import { Text} from 'react-native';
 
 import Container from "../components/layouts/Container";
 
+interface ISearchScreenProps {
+  navigation: {
+    navigate: (arg: string) => void;
+  }
+} 
 
-export default () => {
+export default (props: ISearchScreenProps) => {
   return (
-    <Container>
-      <Text> Aqui estoy</Text>
+    <Container navigate={props.navigation.navigate}>
+      <Text>Aqui estoy</Text>
     </Container>
   );
 };
