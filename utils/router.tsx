@@ -2,6 +2,8 @@ import React from "react";
 import { createAppContainer, createSwitchNavigator} from "react-navigation";
 import { createStackNavigator} from "react-navigation-stack";
 
+import {primary, dark} from "../syles/colors";
+
 import FeedScreen from "../screens/FeedScreen";
 import SearchScreen from "../screens/SearchScreen";
 import AccountScreen from "../screens/AccountScreen";
@@ -15,9 +17,15 @@ const AppStack = createStackNavigator(
         PostForm:PostFormScreen
     },
     {
-        initialRouteName: "Feed"
+        initialRouteName: "Feed",
+        defaultNavigationOptions: {
+            headerStyle:{
+                backgroundColor: dark
+            },
+            headerTintColor: primary
+        }
     }
-) 
+);
 
 export default createAppContainer(
     createSwitchNavigator(
