@@ -1,5 +1,9 @@
 import React from "react";
 import { View, TouchableOpacity, Text,  } from "react-native";
+import AntDesign from "react-native-vector-icons/AntDesign";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+
+
 
 import BottomTabBar from "../../syles/navigation/bottomTabBar";
 
@@ -10,16 +14,16 @@ interface IBottomTabBarProps{
 export default (props: IBottomTabBarProps) => {
     return <View style={BottomTabBar.container}>
         <TouchableOpacity onPress={() => props.navigate("Feed")}>
-            <Text>Feed</Text>
+            <AntDesign name="notification" color="white" size={30} />            
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigate("Search")}>
-            <Text>Search</Text>
+            <AntDesign name="search1" color="white" size={30} /> 
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigate("PostForm")}>
-            <Text>Form</Text>
+            <AntDesign name="form" color="white" size={30} /> 
         </TouchableOpacity>
         <TouchableOpacity onPress={() => props.navigate("Account")}>
-            <Text>Account</Text>
+            <MaterialCommunityIcons name="account-circle" color="white" size={30} /> 
         </TouchableOpacity>
     </View>
 }
