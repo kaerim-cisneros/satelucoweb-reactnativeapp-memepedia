@@ -10,6 +10,8 @@ import SearchScreen from "../screens/SearchScreen";
 import AccountScreen from "../screens/AccountScreen";
 import PostFormScreen from "../screens/PostFormScreen";
 
+import AuthScreen from "../screens/auth/AuthScreen";
+
 const AppStack = createStackNavigator(
     {
         Feed: FeedScreen,
@@ -29,13 +31,26 @@ const AppStack = createStackNavigator(
     }
 );
 
+const AuthStack = createStackNavigator(
+    {
+        Auth: AuthScreen
+    },
+    {
+        initialRouteName: "Auth",
+        defaultNavigationOptions: {
+            headerShown: false
+        }
+    }
+);
+
 export default createAppContainer(
     createSwitchNavigator(
         {
-            App: AppStack
+            App: AppStack,
+            Auth: AuthStack
         },
         {
-            initialRouteName: "App"
+            initialRouteName: "Auth"
         }
     )
 );
