@@ -1,7 +1,11 @@
 import React, {useState} from "react";
 import {View, Text, TouchableOpacity, TextInput} from "react-native";
 
-import {primary, dark, lightGrey} from "../../syles/colors";
+import {lightGrey} from "../../syles/colors";
+
+import textInputStyles from "../../syles/forms/textInputStyles"
+const { textFieldWrapper, inputField } = textInputStyles
+import authScreenStyles from "../../syles/stacks/auth/authScreenStyles"
 
 export default () => {
 
@@ -34,21 +38,13 @@ export default () => {
     };
 
     return (
-        <View style= {{ marginTop: 100, backgroundColor: primary, height: "100%" }}>
-            <Text style={{ color: "white", fontWeight:"bold", paddingTop: 30, paddingLeft: 14, fontSize: 25}}>{headerText()}</Text>
+        <View style= {authScreenStyles.container}>
+            <Text style={{ color: "white", fontWeight:"bold", paddingTop: 30, fontSize: 25}}>{headerText()}</Text>
 
-            <View style={{ marginTop: 20, marginBottom: 10 }}>
+            <View style={ textFieldWrapper}>
                 <TextInput  
 
-                    style={{
-                        paddingLeft:15, 
-                        backgroundColor: "white", 
-                        borderRadius:13,
-                        height:40,
-                        color: dark,
-                        width: "85%",
-                        marginLeft: 14
-                    }}
+                    style={inputField}
                    
                     placeholder="Email"
                     value={email}
@@ -58,18 +54,12 @@ export default () => {
                 />
             </View>
 
-            <View style={{ marginTop: 10, marginBottom: 20 }}>
+            <View style={ textFieldWrapper }>
                 <TextInput  
 
-                    style={{
-                        paddingLeft: 15, 
-                        backgroundColor: "white", 
-                        borderRadius:13,
-                        height:40,
-                        color: dark,
-                        width: "85%",
-                        marginLeft: 14
-                    }}
+                    style={
+                        inputField
+                    }
                    
                     placeholder="Password"
                     value={password}
@@ -80,7 +70,7 @@ export default () => {
             </View>
 
             <TouchableOpacity onPress={handleAuthTypePress}>
-                <Text style={{ paddingLeft:14, color: lightGrey}}>{sceenTypeText()}</Text>
+                <Text style={{ color: lightGrey, paddingTop:10}}>{sceenTypeText()}</Text>
             </TouchableOpacity>
         </View>
     );    
