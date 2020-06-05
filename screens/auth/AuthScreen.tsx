@@ -9,6 +9,10 @@ const { textFieldWrapper, inputField } = textInputStyles
 import authScreenStyles from "../../syles/stacks/auth/authScreenStyles"
 
 import API from "../../utils/api";
+import Button from "../../components/helpers/Button"
+
+
+
 
 interface IAuthScreenProps {
     navigation: {
@@ -22,6 +26,7 @@ export default (props: IAuthScreenProps) => {
     const [formToShow, setFormToShow] = useState("LOGIN");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const sceenTypeText = () =>{
         if (formToShow === "LOGIN") {
@@ -40,6 +45,7 @@ export default (props: IAuthScreenProps) => {
     };
 
     const handleSubmit = () => {
+        setIsSubmitting(true);
         const userAuth = {
             auth: {
                 email: email,
@@ -49,13 +55,21 @@ export default (props: IAuthScreenProps) => {
     API
         .post("memipedia_user_token", userAuth)
         .then(response => {
-            console.log("Response from handle submit",response.data);
             if (response.data.jwt) {
                 props.navigation.navigate("Feed")
+            } else {
+                alert(
+                    "Wrong Email or Password"
+                );
             }
+
+            setIsSubmitting(false);    
         })
         .catch(error => {
-            console.log("error getting token", error);
+            setIsSubmitting(false);        
+            alert(
+                "Wrong Email or Password"
+            );
         });
 
     };
@@ -103,10 +117,13 @@ export default (props: IAuthScreenProps) => {
             <TouchableOpacity onPress={handleAuthTypePress}>
                 <Text style={{ color: lightGrey, paddingTop:10}}>{sceenTypeText()}</Text>
             </TouchableOpacity>
+            
+            {isSubmitting ? (
+                <Button text={"Submitting..."} onPress = {handleSubmit} disabled={true} />
+            ):(
+                <Button text={headerText()} onPress = {handleSubmit}/>
+            )}
 
-            <TouchableOpacity onPress={handleSubmit}>
-                <Text style={{ color: "white", paddingTop:40}}>{headerText()}</Text>
-            </TouchableOpacity>
         </View>
     );    
 };
