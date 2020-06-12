@@ -1,6 +1,6 @@
 import React from "react";
 import { createAppContainer, createSwitchNavigator} from "react-navigation";
-import { createStackNavigator, HeaderTitle} from "react-navigation-stack";
+import { createStackNavigator} from "react-navigation-stack";
 
 import {primary, dark} from "../syles/colors";
 import HeaderLogo from "../components/images/HeaderLogo";

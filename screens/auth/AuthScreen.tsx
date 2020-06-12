@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {View, Text, TouchableOpacity, TextInput} from "react-native";
 
-
+import HeaderLogo from "../../components/images/HeaderLogo";
 import {lightGrey} from "../../syles/colors";
 
 import textInputStyles from "../../syles/forms/textInputStyles"
@@ -36,7 +36,7 @@ export default (props: IAuthScreenProps) => {
         }
     };
 
-    const headerText = () =>{
+    const buttonText = () =>{
         if (formToShow === "LOGIN") {
             return "Login";
         } else if (formToShow === "REGISTER") {
@@ -44,16 +44,15 @@ export default (props: IAuthScreenProps) => {
         }
     };
 
-    const handleSubmit = () => {
-        setIsSubmitting(true);
-        const userAuth = {
+    const handleLogin = () => {
+        const userLogin = {
             auth: {
                 email: email,
                 password: password
             }
         }
     API
-        .post("memipedia_user_token", userAuth)
+        .post("memipedia_user_token", userLogin)
         .then(response => {
             if (response.data.jwt) {
                 props.navigation.navigate("Feed")
@@ -74,6 +73,47 @@ export default (props: IAuthScreenProps) => {
 
     };
 
+    const handleRegistration = () =>{
+        const userRegistration = {
+            user: {
+                email: email,
+                password: password
+            }
+        }
+    API
+        .post("memipedia_users", userRegistration)
+        .then(response => {
+            if (response.data.memipedia_user) {
+                props.navigation.navigate("Feed")
+            } else {
+                
+                alert(
+                    "Registration Error"
+                );
+            }
+
+            setIsSubmitting(false);    
+        })
+        .catch(error => {
+            setIsSubmitting(false);        
+            alert(
+                "Registration Error"
+            );
+        });
+
+    }
+
+    const handleSubmit = () => {
+        setIsSubmitting(true);
+        
+        if (formToShow === "LOGIN") {
+           handleLogin();
+        } else {
+            handleRegistration();
+        }
+    };
+
+
     const handleAuthTypePress =() => {
         if (formToShow === "LOGIN") {
            setFormToShow("REGISTER");
@@ -84,7 +124,7 @@ export default (props: IAuthScreenProps) => {
 
     return (
         <View style= {authScreenStyles.container}>
-            <Text style={{ color: "white", fontWeight:"bold", paddingTop: 30, fontSize: 25}}>{headerText()}</Text>
+            <Text style={{ marginTop: 30, marginBottom: 20}}><HeaderLogo/></Text>
 
             <View style={ textFieldWrapper}>
                 <TextInput  
@@ -121,7 +161,7 @@ export default (props: IAuthScreenProps) => {
             {isSubmitting ? (
                 <Button text={"Submitting..."} onPress = {handleSubmit} disabled={true} />
             ):(
-                <Button text={headerText()} onPress = {handleSubmit}/>
+                <Button text={buttonText()} onPress = {handleSubmit}/>
             )}
 
         </View>
