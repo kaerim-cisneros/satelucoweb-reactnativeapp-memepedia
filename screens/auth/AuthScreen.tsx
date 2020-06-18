@@ -11,7 +11,19 @@ import authScreenStyles from "../../syles/stacks/auth/authScreenStyles"
 import API from "../../utils/api";
 import Button from "../../components/helpers/Button"
 
+const formatErrors = (errorList: any) => {
+    const errorContent = Object.keys(errorList).map(key => ({
+        key, 
+        value: errorList[key]
+        })
+    );
 
+    const formattedErrors: Array<any> = errorContent.map(name => {
+        return `${name.key} : ${name.value.join(", ")}`
+    });
+
+    return formattedErrors.join(", ");
+}
 
 
 interface IAuthScreenProps {
@@ -88,7 +100,7 @@ export default (props: IAuthScreenProps) => {
             } else {
                 
                 alert(
-                    "Registration Error"
+                    `Error creating account: ${formatErrors(response.data.errors)}`
                 );
             }
 
