@@ -11,6 +11,8 @@ import AccountScreen from "../screens/AccountScreen";
 import PostFormScreen from "../screens/PostFormScreen";
 
 import AuthScreen from "../screens/auth/AuthScreen";
+import AuthLoadingScreen from "../screens/auth/AuthLoadingScreen";
+
 
 const AppStack = createStackNavigator(
     {
@@ -46,11 +48,12 @@ const AuthStack = createStackNavigator(
 export default createAppContainer(
     createSwitchNavigator(
         {
+            AuthLoading: AuthLoadingScreen,
             App: AppStack,
             Auth: AuthStack
         },
         {
-            initialRouteName: "Auth"
+            initialRouteName: "AuthLoading"
         }
     )
 );
