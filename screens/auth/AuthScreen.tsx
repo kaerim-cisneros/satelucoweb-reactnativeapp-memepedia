@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {View, Text, TouchableOpacity, TextInput} from "react-native";
+import {View, Text, TouchableOpacity, TextInput, ScrollView} from "react-native";
 
 import HeaderLogo from "../../components/images/HeaderLogo";
 import {lightGrey} from "../../syles/colors";
@@ -9,21 +9,9 @@ const { textFieldWrapper, inputField } = textInputStyles
 import authScreenStyles from "../../syles/stacks/auth/authScreenStyles"
 
 import API from "../../utils/api";
-import Button from "../../components/helpers/Button"
+import Button from "../../components/helpers/Button";
+import {formatErrors} from "../../utils/textFormatters";
 
-const formatErrors = (errorList: any) => {
-    const errorContent = Object.keys(errorList).map(key => ({
-        key, 
-        value: errorList[key]
-        })
-    );
-
-    const formattedErrors: Array<any> = errorContent.map(name => {
-        return `${name.key} : ${name.value.join(", ")}`
-    });
-
-    return formattedErrors.join(", ");
-}
 
 
 interface IAuthScreenProps {
@@ -135,7 +123,7 @@ export default (props: IAuthScreenProps) => {
     };
 
     return (
-        <View style= {authScreenStyles.container}>
+        <ScrollView style= {authScreenStyles.container}>
             <Text style={{ marginTop: 30, marginBottom: 20}}><HeaderLogo/></Text>
 
             <View style={ textFieldWrapper}>
@@ -176,6 +164,6 @@ export default (props: IAuthScreenProps) => {
                 <Button text={buttonText()} onPress = {handleSubmit}/>
             )}
 
-        </View>
+        </ScrollView>
     );    
 };
