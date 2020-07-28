@@ -12,6 +12,9 @@ import API from "../../utils/api";
 import Button from "../../components/helpers/Button";
 import {formatErrors} from "../../utils/textFormatters";
 
+import * as SecureStore from "expo-secure-store";
+
+
 
 
 interface IAuthScreenProps {
@@ -53,8 +56,12 @@ export default (props: IAuthScreenProps) => {
         }
     API
         .post("memipedia_user_token", userLogin)
-        .then(response => {
+        .then(async response => {
             if (response.data.jwt) {
+                await SecureStore.setItemAsync(
+                    "memipedia_user_token",
+                     response.data.jwt
+                );
                 props.navigation.navigate("Feed")
             } else {
                 alert(
