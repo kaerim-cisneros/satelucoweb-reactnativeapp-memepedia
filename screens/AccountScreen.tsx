@@ -1,22 +1,38 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React {useContext} from 'react';
+import { View , Text, ShadowPropTypesIOS } from 'react-native';
+import * as SecureStore from "expo-secure-store";
 
-import Container from "../components/layouts/Container";
-
-
-interface IAccountScreenProps {
-  navigation: {
-    navigate: (arg: string) => void;
-  }
-} 
+import CurrentUserContext from "../utils/context/CurrentUserContext";
+import Botton from "../components/helpers/Button";
+import { useContext } from 'react';
 
 
-export default (props: IAccountScreenProps) => {
+
+interface IAcountScreenProps {
+  navigation:{
+    navigate: (arg:string) => void;
+  };
+}
+
+export default (props: IAcountScreenProps) => {
+  const {setCurrentUser} = useContext(CurrentUserContext);
+
+  const handleSignOut = async () => {
+    alert("Signing out...");
+      await SecureStore.deleteItemAsync("memipedia_secure_token")
+      setCurrentUser(null);
+      props.navigation.navigate("Auth");
+  };
+
   return (
-    <Container navigate={props.navigation.navigate}>
+    <View>
       <Text> 
           Cuantas cuentas
-        </Text>
-    </Container>
+      </Text>
+
+      <View style={{ marginTop:20 }}>
+        <Botton onPress={handleSignOut} text="Sign Out" />
+      </View>
+    </View>
   );
 };
