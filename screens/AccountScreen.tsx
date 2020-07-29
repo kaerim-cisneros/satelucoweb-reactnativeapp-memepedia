@@ -1,10 +1,9 @@
-import React {useContext} from 'react';
-import { View , Text, ShadowPropTypesIOS } from 'react-native';
+import React, { useContext } from 'react';
+import { View , Text} from 'react-native';
 import * as SecureStore from "expo-secure-store";
 
 import CurrentUserContext from "../utils/context/CurrentUserContext";
-import Botton from "../components/helpers/Button";
-import { useContext } from 'react';
+import Botton from "../components/helpers/Button"; 
 
 
 
@@ -18,7 +17,6 @@ export default (props: IAcountScreenProps) => {
   const {setCurrentUser} = useContext(CurrentUserContext);
 
   const handleSignOut = async () => {
-    alert("Signing out...");
       await SecureStore.deleteItemAsync("memipedia_secure_token")
       setCurrentUser(null);
       props.navigation.navigate("Auth");

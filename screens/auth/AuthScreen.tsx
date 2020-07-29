@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {View, Text, TouchableOpacity, TextInput, ScrollView} from "react-native";
 
 import HeaderLogo from "../../components/images/HeaderLogo";
@@ -14,7 +14,7 @@ import {formatErrors} from "../../utils/textFormatters";
 
 import * as SecureStore from "expo-secure-store";
 
-
+import CurrentUserContext from "../../utils/context/CurrentUserContext";
 
 
 interface IAuthScreenProps {
@@ -30,6 +30,8 @@ export default (props: IAuthScreenProps) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const { getUser }  = useContext(CurrentUserContext); 
 
     const sceenTypeText = () =>{
         if (formToShow === "LOGIN") {
@@ -62,14 +64,17 @@ export default (props: IAuthScreenProps) => {
                     "memipedia_user_token",
                      response.data.jwt
                 );
+                getUser();
+                setIsSubmitting(false); 
                 props.navigation.navigate("Feed")
             } else {
+                setIsSubmitting(false); 
                 alert(
                     "Wrong Email or Password"
                 );
             }
 
-            setIsSubmitting(false);    
+              
         })
         .catch(error => {
             setIsSubmitting(false);        
@@ -93,13 +98,13 @@ export default (props: IAuthScreenProps) => {
             if (response.data.memipedia_user) {
                 props.navigation.navigate("Feed")
             } else {
-                
+            setIsSubmitting(false);        
                 alert(
                     `Error creating account: ${formatErrors(response.data.errors)}`
                 );
             }
 
-            setIsSubmitting(false);    
+            
         })
         .catch(error => {
             setIsSubmitting(false);        
@@ -158,6 +163,7 @@ export default (props: IAuthScreenProps) => {
                     onChangeText={val => setPassword(val)}
                     autoCapitalize="none"
                     secureTextEntry={true}
+                    onSubmitEditing={handleSubmit}
                 />
             </View>
 
@@ -170,6 +176,8 @@ export default (props: IAuthScreenProps) => {
             ):(
                 <Button text={buttonText()} onPress = {handleSubmit}/>
             )}
+
+            
 
         </ScrollView>
     );    
